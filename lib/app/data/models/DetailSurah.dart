@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-DetailSurah detailSurahFromJson(String str) => DetailSurah.fromJson(json.decode(str));
+DetailSurah detailSurahFromJson(String str) =>
+    DetailSurah.fromJson(json.decode(str));
 
 String detailSurahToJson(DetailSurah data) => json.encode(data.toJson());
 
@@ -30,26 +31,26 @@ class DetailSurah {
   List<Verse> verses;
 
   factory DetailSurah.fromJson(Map<String, dynamic> json) => DetailSurah(
-    number: json["number"],
-    sequence: json["sequence"],
-    numberOfVerses: json["numberOfVerses"],
-    name: Name.fromJson(json["name"]),
-    revelation: Revelation.fromJson(json["revelation"]),
-    tafsir: DataTafsir.fromJson(json["tafsir"]),
-    preBismillah: PreBismillah.fromJson(json["preBismillah"]),
-    verses: List<Verse>.from(json["verses"].map((x) => Verse.fromJson(x))),
-  );
+        number: json["number"],
+        sequence: json["sequence"],
+        numberOfVerses: json["numberOfVerses"],
+        name: Name.fromJson(json["name"]),
+        revelation: Revelation.fromJson(json["revelation"]),
+        tafsir: DataTafsir.fromJson(json["tafsir"]),
+        preBismillah: PreBismillah.fromJson(json["preBismillah"]),
+        verses: List<Verse>.from(json["verses"].map((x) => Verse.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "number": number,
-    "sequence": sequence,
-    "numberOfVerses": numberOfVerses,
-    "name": name.toJson(),
-    "revelation": revelation.toJson(),
-    "tafsir": tafsir.toJson(),
-    "preBismillah": preBismillah.toJson(),
-    "verses": List<dynamic>.from(verses.map((x) => x.toJson())),
-  };
+        "number": number,
+        "sequence": sequence,
+        "numberOfVerses": numberOfVerses,
+        "name": name.toJson(),
+        "revelation": revelation.toJson(),
+        "tafsir": tafsir.toJson(),
+        "preBismillah": preBismillah.toJson(),
+        "verses": List<dynamic>.from(verses.map((x) => x.toJson())),
+      };
 }
 
 class Name {
@@ -66,18 +67,18 @@ class Name {
   Translation translation;
 
   factory Name.fromJson(Map<String, dynamic> json) => Name(
-    short: json["short"],
-    long: json["long"],
-    transliteration: Translation.fromJson(json["transliteration"]),
-    translation: Translation.fromJson(json["translation"]),
-  );
+        short: json["short"],
+        long: json["long"],
+        transliteration: Translation.fromJson(json["transliteration"]),
+        translation: Translation.fromJson(json["translation"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "short": short,
-    "long": long,
-    "transliteration": transliteration.toJson(),
-    "translation": translation.toJson(),
-  };
+        "short": short,
+        "long": long,
+        "transliteration": transliteration.toJson(),
+        "translation": translation.toJson(),
+      };
 }
 
 class Translation {
@@ -90,14 +91,14 @@ class Translation {
   String id;
 
   factory Translation.fromJson(Map<String, dynamic> json) => Translation(
-    en: json["en"],
-    id: json["id"],
-  );
+        en: json["en"],
+        id: json["id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "en": en,
-    "id": id,
-  };
+        "en": en,
+        "id": id,
+      };
 }
 
 class PreBismillah {
@@ -112,16 +113,16 @@ class PreBismillah {
   Audio audio;
 
   factory PreBismillah.fromJson(Map<String, dynamic> json) => PreBismillah(
-    text: Text.fromJson(json["text"]),
-    translation: Translation.fromJson(json["translation"]),
-    audio: Audio.fromJson(json["audio"]),
-  );
+        text: Text.fromJson(json["text"]),
+        translation: Translation.fromJson(json["translation"]),
+        audio: Audio.fromJson(json["audio"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "text": text.toJson(),
-    "translation": translation.toJson(),
-    "audio": audio.toJson(),
-  };
+        "text": text.toJson(),
+        "translation": translation.toJson(),
+        "audio": audio.toJson(),
+      };
 }
 
 class Audio {
@@ -134,14 +135,14 @@ class Audio {
   List<String> secondary;
 
   factory Audio.fromJson(Map<String, dynamic> json) => Audio(
-    primary: json["primary"],
-    secondary: List<String>.from(json["secondary"].map((x) => x)),
-  );
+        primary: json["primary"],
+        secondary: List<String>.from(json["secondary"].map((x) => x)),
+      );
 
   Map<String, dynamic> toJson() => {
-    "primary": primary,
-    "secondary": List<dynamic>.from(secondary.map((x) => x)),
-  };
+        "primary": primary,
+        "secondary": List<dynamic>.from(secondary.map((x) => x)),
+      };
 }
 
 class Text {
@@ -154,14 +155,14 @@ class Text {
   Transliteration transliteration;
 
   factory Text.fromJson(Map<String, dynamic> json) => Text(
-    arab: json["arab"],
-    transliteration: Transliteration.fromJson(json["transliteration"]),
-  );
+        arab: json["arab"],
+        transliteration: Transliteration.fromJson(json["transliteration"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "arab": arab,
-    "transliteration": transliteration.toJson(),
-  };
+        "arab": arab,
+        "transliteration": transliteration.toJson(),
+      };
 }
 
 class Transliteration {
@@ -171,13 +172,14 @@ class Transliteration {
 
   String en;
 
-  factory Transliteration.fromJson(Map<String, dynamic> json) => Transliteration(
-    en: json["en"],
-  );
+  factory Transliteration.fromJson(Map<String, dynamic> json) =>
+      Transliteration(
+        en: json["en"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "en": en,
-  };
+        "en": en,
+      };
 }
 
 class Revelation {
@@ -192,16 +194,16 @@ class Revelation {
   String id;
 
   factory Revelation.fromJson(Map<String, dynamic> json) => Revelation(
-    arab: json["arab"],
-    en: json["en"],
-    id: json["id"],
-  );
+        arab: json["arab"],
+        en: json["en"],
+        id: json["id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "arab": arab,
-    "en": en,
-    "id": id,
-  };
+        "arab": arab,
+        "en": en,
+        "id": id,
+      };
 }
 
 class DataTafsir {
@@ -212,12 +214,12 @@ class DataTafsir {
   String id;
 
   factory DataTafsir.fromJson(Map<String, dynamic> json) => DataTafsir(
-    id: json["id"],
-  );
+        id: json["id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-  };
+        "id": id,
+      };
 }
 
 class Verse {
@@ -238,22 +240,22 @@ class Verse {
   VerseTafsir tafsir;
 
   factory Verse.fromJson(Map<String, dynamic> json) => Verse(
-    number: Number.fromJson(json["number"]),
-    meta: Meta.fromJson(json["meta"]),
-    text: Text.fromJson(json["text"]),
-    translation: Translation.fromJson(json["translation"]),
-    audio: Audio.fromJson(json["audio"]),
-    tafsir: VerseTafsir.fromJson(json["tafsir"]),
-  );
+        number: Number.fromJson(json["number"]),
+        meta: Meta.fromJson(json["meta"]),
+        text: Text.fromJson(json["text"]),
+        translation: Translation.fromJson(json["translation"]),
+        audio: Audio.fromJson(json["audio"]),
+        tafsir: VerseTafsir.fromJson(json["tafsir"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "number": number.toJson(),
-    "meta": meta.toJson(),
-    "text": text.toJson(),
-    "translation": translation.toJson(),
-    "audio": audio.toJson(),
-    "tafsir": tafsir.toJson(),
-  };
+        "number": number.toJson(),
+        "meta": meta.toJson(),
+        "text": text.toJson(),
+        "translation": translation.toJson(),
+        "audio": audio.toJson(),
+        "tafsir": tafsir.toJson(),
+      };
 }
 
 class Meta {
@@ -274,22 +276,22 @@ class Meta {
   Sajda sajda;
 
   factory Meta.fromJson(Map<String, dynamic> json) => Meta(
-    juz: json["juz"],
-    page: json["page"],
-    manzil: json["manzil"],
-    ruku: json["ruku"],
-    hizbQuarter: json["hizbQuarter"],
-    sajda: Sajda.fromJson(json["sajda"]),
-  );
+        juz: json["juz"],
+        page: json["page"],
+        manzil: json["manzil"],
+        ruku: json["ruku"],
+        hizbQuarter: json["hizbQuarter"],
+        sajda: Sajda.fromJson(json["sajda"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "juz": juz,
-    "page": page,
-    "manzil": manzil,
-    "ruku": ruku,
-    "hizbQuarter": hizbQuarter,
-    "sajda": sajda.toJson(),
-  };
+        "juz": juz,
+        "page": page,
+        "manzil": manzil,
+        "ruku": ruku,
+        "hizbQuarter": hizbQuarter,
+        "sajda": sajda.toJson(),
+      };
 }
 
 class Sajda {
@@ -302,14 +304,14 @@ class Sajda {
   bool obligatory;
 
   factory Sajda.fromJson(Map<String, dynamic> json) => Sajda(
-    recommended: json["recommended"],
-    obligatory: json["obligatory"],
-  );
+        recommended: json["recommended"],
+        obligatory: json["obligatory"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "recommended": recommended,
-    "obligatory": obligatory,
-  };
+        "recommended": recommended,
+        "obligatory": obligatory,
+      };
 }
 
 class Number {
@@ -322,14 +324,14 @@ class Number {
   int inSurah;
 
   factory Number.fromJson(Map<String, dynamic> json) => Number(
-    inQuran: json["inQuran"],
-    inSurah: json["inSurah"],
-  );
+        inQuran: json["inQuran"],
+        inSurah: json["inSurah"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "inQuran": inQuran,
-    "inSurah": inSurah,
-  };
+        "inQuran": inQuran,
+        "inSurah": inSurah,
+      };
 }
 
 class VerseTafsir {
@@ -340,12 +342,12 @@ class VerseTafsir {
   Id id;
 
   factory VerseTafsir.fromJson(Map<String, dynamic> json) => VerseTafsir(
-    id: Id.fromJson(json["id"]),
-  );
+        id: Id.fromJson(json["id"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id.toJson(),
-  };
+        "id": id.toJson(),
+      };
 }
 
 class Id {
@@ -358,12 +360,12 @@ class Id {
   String long;
 
   factory Id.fromJson(Map<String, dynamic> json) => Id(
-    short: json["short"],
-    long: json["long"],
-  );
+        short: json["short"],
+        long: json["long"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "short": short,
-    "long": long,
-  };
+        "short": short,
+        "long": long,
+      };
 }

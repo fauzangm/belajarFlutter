@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.untitled">
+    package="eduside.testing">
    <application
-        android:label="untitled"
+        android:label="testing"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

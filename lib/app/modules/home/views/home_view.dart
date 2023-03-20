@@ -40,10 +40,10 @@ class HomeView extends GetView<HomeController> {
                           child: Text("${surah.number}"),
                         ),
                         title: Text(
-                            "${surah.name.transliteration.id ?? 'Gagal memuat..'} | (${surah.name.translation.id ?? ''})"),
+                            "${surah.name?.transliteration?.id ?? 'Gagal memuat..'} | (${surah.name?.translation?.id ?? ''})"),
                         subtitle: Text(
-                            "${surah.numberOfVerses ?? 'Gagal memuat..'} Ayat | ${surah.revelation.id ?? ''}"),
-                        trailing: Text("${surah.name.short}"),
+                            "${surah.numberOfVerses ?? 'Gagal memuat..'} Ayat | ${surah.revelation?.id ?? ''}"),
+                        trailing: Text("${surah.name?.short}"),
                       );
                     });
               }

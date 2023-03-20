@@ -30,7 +30,7 @@ void main() async {
       (json.decode(resAnnas.body) as Map<String, dynamic>)["data"];
   /**Mengubah  dari data api (raw data/jsonData) menjadi Model Data**/
   DetailSurah annas = DetailSurah.fromJson(daataAnnas);
-  print(annas.verses[0].text.transliteration.en);
+  print(annas.verses?[0].text?.transliteration.en);
 }
 // void main() {
 //   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

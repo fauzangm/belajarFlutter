@@ -31,22 +31,23 @@ class DetailSurah {
   List<Verse>? verses;
 
 //null Safety masih
-  factory DetailSurah.fromJson(Map<String, dynamic> json) => DetailSurah(
-        number: json["number"],
-        sequence: json["sequence"],
-        numberOfVerses: json["numberOfVerses"],
-        name: json["name"] == null ? null : Name.fromJson(json["name"]),
-        revelation: json["revelation"] == null
+  factory DetailSurah.fromJson(Map<String, dynamic>? json) => DetailSurah(
+        number: json?["number"],
+        sequence: json?["sequence"],
+        numberOfVerses: json?["numberOfVerses"],
+        name: json?["name"] == null ? null : Name.fromJson(json?["name"]),
+        revelation: json?["revelation"] == null
             ? null
-            : Revelation.fromJson(json["revelation"]),
-        tafsir:
-            json["tafsir"] == null ? null : DataTafsir.fromJson(json["tafsir"]),
-        preBismillah: json["preBismillah"] == null
+            : Revelation.fromJson(json?["revelation"]),
+        tafsir: json?["tafsir"] == null
             ? null
-            : PreBismillah.fromJson(json["preBismillah"]),
-        verses: json["verses"] == null
+            : DataTafsir.fromJson(json?["tafsir"]),
+        preBismillah: json?["preBismillah"] == null
+            ? null
+            : PreBismillah.fromJson(json?["preBismillah"]),
+        verses: json?["verses"] == null
             ? []
-            : List<Verse>.from(json["verses"].map((x) => Verse.fromJson(x))),
+            : List<Verse>.from(json?["verses"].map((x) => Verse.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

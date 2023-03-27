@@ -144,6 +144,7 @@ class HomeView extends GetView<HomeController> {
                           return ListView.builder(
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
+                                List<String> allSurah = [];
                                 Surah surah = snapshot.data![index];
                                 return ListTile(
                                   onTap: () {
@@ -178,7 +179,8 @@ class HomeView extends GetView<HomeController> {
                     itemCount: 30,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        onTap: () {},
+                        onTap: () => Get.toNamed(Routes.DETAIL_JUZ,
+                            arguments: "${index + 1}"),
                         leading: Container(
                             height: 35,
                             width: 35,

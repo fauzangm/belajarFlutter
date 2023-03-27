@@ -1,33 +1,4 @@
-//API URL : https://api.quran.gading.dev/juz/{id}
-
-class juz {
-  int? code;
-  String? status;
-  String? message;
-  Data? data;
-
-  juz({this.code, this.status, this.message, this.data});
-
-  juz.fromJson(Map<String, dynamic> json) {
-    code = json['code'];
-    status = json['status'];
-    message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['code'] = this.code;
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
-}
-
-class Data {
+class DetailJuz {
   int? juz;
   int? juzStartSurahNumber;
   int? juzEndSurahNumber;
@@ -36,7 +7,7 @@ class Data {
   int? totalVerses;
   List<Verses>? verses;
 
-  Data(
+  DetailJuz(
       {this.juz,
       this.juzStartSurahNumber,
       this.juzEndSurahNumber,
@@ -45,7 +16,7 @@ class Data {
       this.totalVerses,
       this.verses});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  DetailJuz.fromJson(Map<String, dynamic> json) {
     juz = json['juz'];
     juzStartSurahNumber = json['juzStartSurahNumber'];
     juzEndSurahNumber = json['juzEndSurahNumber'];

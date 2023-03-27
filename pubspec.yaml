@@ -10,6 +10,8 @@ dependencies:
   get: 4.6.5
   http: ^0.13.5
   lottie: 2.3.0
+  get_storage: 2.1.1
+  just_audio: 0.9.32
   flutter: 
     sdk: flutter
 
@@ -19,7 +21,8 @@ dev_dependencies:
     sdk: flutter
 
 flutter: 
-  uses-material-design: true
-  assets:
+  assets: 
     - assets/lotties/
     - assets/images/
+  uses-material-design: true
+

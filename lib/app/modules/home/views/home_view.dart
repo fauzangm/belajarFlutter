@@ -160,7 +160,11 @@ class HomeView extends GetView<HomeController> {
                                         ),
                                       ),
                                       child: Center(
-                                          child: Text("${surah.number}"))),
+                                          child: Text(
+                                        "${surah.number}",
+                                        style:
+                                            TextStyle(color: colorPurpleDark),
+                                      ))),
                                   title: Text(
                                       "${surah.name?.transliteration?.id ?? 'Gagal memuat..'} | (${surah.name?.translation?.id ?? ''})"),
                                   subtitle: Text(
@@ -170,7 +174,28 @@ class HomeView extends GetView<HomeController> {
                               });
                         }
                       }),
-                  Center(child: Text("Page2")),
+                  ListView.builder(
+                    itemCount: 30,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        onTap: () {},
+                        leading: Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/bgnumber.png"),
+                              ),
+                            ),
+                            child: Center(
+                                child: Text(
+                              "${index + 1}",
+                              style: TextStyle(color: colorPurpleDark),
+                            ))),
+                        title: Text("Juz ${index + 1}"),
+                      );
+                    },
+                  ),
                   Center(child: Text("Page3"))
                 ]),
               )

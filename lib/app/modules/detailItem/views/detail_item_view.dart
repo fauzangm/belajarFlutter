@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:testing/app/assets/colors.dart';
 import 'package:testing/app/data/models/DetailSurah.dart' as detail;
 import 'package:testing/app/data/models/Surah.dart';
 import 'package:testing/app/routes/app_pages.dart';
@@ -20,18 +21,24 @@ class DetailItemView extends GetView<DetailItemController> {
         body: ListView(
           padding: EdgeInsets.all(20),
           children: [
-            Card(
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                      colors: [colorPurpleLight, colorPurpleDark])),
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(children: [
                   Text('${surah.name?.transliteration?.id?.toUpperCase()}',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: colorWhite)),
                   Text('(${surah.name?.translation?.id?.toUpperCase()})',
-                      style: TextStyle(fontSize: 14)),
+                      style: TextStyle(fontSize: 14, color: colorWhite)),
                   Text(
                       '(${surah.numberOfVerses} Ayat | ${surah.revelation?.id})',
-                      style: TextStyle(fontSize: 14)),
+                      style: TextStyle(fontSize: 14, color: colorWhite)),
                 ]),
               ),
             ),
@@ -62,14 +69,29 @@ class DetailItemView extends GetView<DetailItemController> {
                           }
                           detail.Verse? ayat = snapshot.data?.verses?[index];
                           return GestureDetector(
-                            onTap: () {
-                              Get?.toNamed(Routes.DETAIL_AYAT,
-                                  arguments: detail.DetailSurah);
-                            },
+                            onTap: () => Get.defaultDialog(
+                              backgroundColor: colorPurpleLight.withOpacity(1),
+                              title: "Tafsir",
+                              titleStyle:
+                                  TextStyle(fontWeight: FontWeight.bold),
+                              content: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: Container(
+                                  child: (Text(
+                                    "${surah.tafsir?.id ?? 'Tidak ada tafsir'}",
+                                    textAlign: TextAlign.justify,
+                                  )),
+                                ),
+                              ),
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Card(
+                                Container(
+                                  decoration: BoxDecoration(
+                                      color: colorPurpleLight.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(10)),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 10),
@@ -77,8 +99,16 @@ class DetailItemView extends GetView<DetailItemController> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        CircleAvatar(
-                                          child: Text("${index + 1}"),
+                                        Container(
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: AssetImage(
+                                                      "assets/images/bgnumber.png"),
+                                                  fit: BoxFit.contain)),
+                                          child: Center(
+                                              child: Text("${index + 1}")),
                                         ),
                                         Row(
                                           children: [

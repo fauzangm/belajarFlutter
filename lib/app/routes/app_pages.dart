@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/detailItem/bindings/detail_item_binding.dart';
 import '../modules/detailItem/views/detail_item_view.dart';
+import '../modules/detailJuz/bindings/detail_juz_binding.dart';
+import '../modules/detailJuz/views/detail_juz_view.dart';
 import '../modules/detail_ayat/bindings/detail_ayat_binding.dart';
 import '../modules/detail_ayat/views/detail_ayat_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.LAST_READ,
       page: () => LastReadView(),
       binding: LastReadBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_JUZ,
+      page: () => const DetailJuzView(),
+      binding: DetailJuzBinding(),
     ),
   ];
 }

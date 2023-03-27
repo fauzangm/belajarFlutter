@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 import 'package:testing/app/data/models/Surah.dart';
-import 'package:testing/app/data/models/Juz.dart';
+import 'package:testing/app/data/models/DetailJuz.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController

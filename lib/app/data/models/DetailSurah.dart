@@ -235,6 +235,7 @@ class DataTafsir {
 
 class Verse {
   Verse({
+    kondisiAudio,
     required this.number,
     required this.meta,
     required this.text,
@@ -243,6 +244,7 @@ class Verse {
     required this.tafsir,
   });
 
+  String kondisiAudio = "stop";
   Number? number;
   Meta? meta;
   Text? text;
@@ -260,6 +262,7 @@ class Verse {
       );
 
   Map<String, dynamic> toJson() => {
+        "kondisiAudio": kondisiAudio,
         "number": number?.toJson(),
         "meta": meta?.toJson(),
         "text": text?.toJson(),

@@ -14,7 +14,6 @@ class DetailItemController extends GetxController {
   //TODO: Implement DetailItemController
   DatabaseManager database = DatabaseManager.instance;
   Verse? lastVerse;
-  // RxString KondisiAudio = "stop".obs;
   final player = AudioPlayer();
   Future<DetailSurah> getDetailSurah(String id) async {
     Uri url = Uri.parse("https://api.quran.gading.dev/surah/$id");
@@ -129,7 +128,7 @@ class DetailItemController extends GetxController {
     }
   }
 
-  void addBookMark(
+  Future<void> addBookMark(
       bool lastRead, DetailSurah surah, Verse ayat, int indexAyat) async {
     Database db = await database.db;
     bool flagExist = false;

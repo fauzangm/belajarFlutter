@@ -4,12 +4,14 @@ import 'package:get/get.dart';
 import 'package:testing/app/assets/colors.dart';
 import 'package:testing/app/data/models/DetailSurah.dart' as detail;
 import 'package:testing/app/data/models/Surah.dart';
+import 'package:testing/app/modules/home/controllers/home_controller.dart';
 import 'package:testing/app/routes/app_pages.dart';
 
 import '../controllers/detail_item_controller.dart';
 
 class DetailItemView extends GetView<DetailItemController> {
   final Surah surah = Get.arguments;
+  final homeC = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,14 +123,17 @@ class DetailItemView extends GetView<DetailItemController> {
                                                             "Pilih jenis bookmark",
                                                         actions: [
                                                           ElevatedButton(
-                                                            onPressed: () {
-                                                              cButton
+                                                            onPressed:
+                                                                () async {
+                                                              await cButton
                                                                   .addBookMark(
                                                                       false,
                                                                       snapshot
                                                                           .data!,
                                                                       ayat!,
                                                                       index);
+
+                                                              homeC.update();
                                                             },
                                                             child: Text(
                                                                 "Last Read"),

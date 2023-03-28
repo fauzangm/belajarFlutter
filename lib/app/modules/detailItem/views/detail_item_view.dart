@@ -121,7 +121,15 @@ class DetailItemView extends GetView<DetailItemController> {
                                                             "Pilih jenis bookmark",
                                                         actions: [
                                                           ElevatedButton(
-                                                            onPressed: () {},
+                                                            onPressed: () {
+                                                              cButton
+                                                                  .addBookMark(
+                                                                      false,
+                                                                      snapshot
+                                                                          .data!,
+                                                                      ayat!,
+                                                                      index);
+                                                            },
                                                             child: Text(
                                                                 "Last Read"),
                                                             style: ElevatedButton
@@ -130,7 +138,14 @@ class DetailItemView extends GetView<DetailItemController> {
                                                                         colorPurplePrimary),
                                                           ),
                                                           ElevatedButton(
-                                                              onPressed: () {},
+                                                              onPressed: () {
+                                                                cButton.addBookMark(
+                                                                    true,
+                                                                    snapshot
+                                                                        .data!,
+                                                                    ayat!,
+                                                                    index);
+                                                              },
                                                               child: Text(
                                                                   "Bookmark"),
                                                               style: ElevatedButton

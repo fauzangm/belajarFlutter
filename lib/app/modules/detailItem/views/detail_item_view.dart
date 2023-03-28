@@ -114,7 +114,31 @@ class DetailItemView extends GetView<DetailItemController> {
                                           builder: (cButton) => Row(
                                             children: [
                                               IconButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    Get.defaultDialog(
+                                                        title: "BOOKMARK",
+                                                        middleText:
+                                                            "Pilih jenis bookmark",
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed: () {},
+                                                            child: Text(
+                                                                "Last Read"),
+                                                            style: ElevatedButton
+                                                                .styleFrom(
+                                                                    primary:
+                                                                        colorPurplePrimary),
+                                                          ),
+                                                          ElevatedButton(
+                                                              onPressed: () {},
+                                                              child: Text(
+                                                                  "Bookmark"),
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                      primary:
+                                                                          colorPurpleLight))
+                                                        ]);
+                                                  },
                                                   icon: Icon(Icons
                                                       .bookmark_add_outlined)),
                                               (ayat?.kondisiAudio == "stop")

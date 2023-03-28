@@ -12,6 +12,8 @@ dependencies:
   lottie: 2.3.0
   get_storage: 2.1.1
   just_audio: 0.9.32
+  sqflite: 2.2.6
+  path_provider: 2.0.14
   flutter: 
     sdk: flutter
 

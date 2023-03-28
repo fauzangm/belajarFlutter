@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 class DetailItemController extends GetxController {
   //TODO: Implement DetailItemController
 
+  Verse? lastVerse;
   // RxString KondisiAudio = "stop".obs;
   final player = AudioPlayer();
   Future<DetailSurah> getDetailSurah(String id) async {
@@ -27,8 +28,17 @@ class DetailItemController extends GetxController {
     if (ayat?.audio?.primary != null) {
       // Catching errors at load time
       try {
+        if (lastVerse == null) {
+          lastVerse = ayat;
+        }
+
+        lastVerse!.kondisiAudio = "stop";
+        lastVerse = ayat;
+        lastVerse!.kondisiAudio = "stop";
+        update();
+
         await player.stop();
-        await player.setUrl(ayat!.audio!.primary!);
+        await player.setUrl(ayat!.audio!.primary);
         ayat.kondisiAudio = "playing";
         update();
         await player.play();

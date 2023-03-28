@@ -167,7 +167,10 @@ class HomeView extends GetView<HomeController> {
                                             TextStyle(color: colorPurpleDark),
                                       ))),
                                   title: Text(
-                                      "${surah.name?.transliteration?.id ?? 'Gagal memuat..'} | (${surah.name?.translation?.id ?? ''})"),
+                                    "${surah.name?.transliteration?.id ?? 'Gagal memuat..'} | (${surah.name?.translation?.id ?? ''})",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   subtitle: Text(
                                       "${surah.numberOfVerses ?? 'Gagal memuat..'} Ayat | ${surah.revelation?.id ?? ''}"),
                                   trailing: Text("${surah.name?.short}"),
@@ -198,7 +201,60 @@ class HomeView extends GetView<HomeController> {
                       );
                     },
                   ),
-                  Center(child: Text("Page3"))
+                  GetBuilder<HomeController>(
+                    builder: (cBookmark) {
+                      return FutureBuilder<List<Map<String, dynamic>>>(
+                        future: cBookmark.getBookmark(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (snapshot.data?.length == 0) {
+                            return Center(
+                              child: Text(""),
+                            );
+                          }
+                          return ListView.builder(
+                            itemCount: snapshot.data?.length,
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> data = snapshot.data![index];
+                              return ListTile(
+                                onTap: () {
+                                  print(index);
+                                },
+                                leading: CircleAvatar(
+                                  child: Text(
+                                    "${index + 1}",
+                                    style: TextStyle(
+                                        color: colorWhite,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  backgroundColor: colorPurpleLight,
+                                ),
+                                title: Text(
+                                  "${data['surah'].toString().replaceAll("+", "'")}",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text(
+                                    "Ayat ${data['ayat']} | Juz ke ${data['juz']}"),
+                                trailing: IconButton(
+                                  onPressed: () {
+                                    cBookmark.deleteBookmarkById(data['id']);
+                                  },
+                                  icon: Icon(Icons.delete),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  )
                 ]),
               )
             ],

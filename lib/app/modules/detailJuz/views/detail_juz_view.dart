@@ -106,16 +106,55 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                           child:
                                               Text("${ayat?.number?.inSurah}")),
                                     ),
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(
-                                                Icons.bookmark_add_outlined)),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Icon(Icons.play_arrow)),
-                                      ],
+                                    GetBuilder<DetailJuzController>(
+                                      builder: (cButton) => Row(
+                                        children: [
+                                          // IconButton(
+                                          //     onPressed: () {},
+                                          //     icon: Icon(
+                                          //         Icons.bookmark_add_outlined)),
+                                          (ayat?.kondisiAudio == "stop")
+                                              ? IconButton(
+                                                  onPressed: () {
+                                                    cButton.playAudio(ayat);
+                                                  },
+                                                  icon: Icon(Icons.play_arrow),
+                                                )
+                                              : Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    (ayat?.kondisiAudio ==
+                                                            "playing")
+                                                        ? IconButton(
+                                                            onPressed: () {
+                                                              cButton
+                                                                  .pauseAudio(
+                                                                      ayat!);
+                                                            },
+                                                            icon: Icon(
+                                                                Icons.pause),
+                                                          )
+                                                        : IconButton(
+                                                            onPressed: () {
+                                                              cButton
+                                                                  .resumeAudio(
+                                                                      ayat!);
+                                                            },
+                                                            icon: Icon(Icons
+                                                                .play_arrow),
+                                                          ),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        controller
+                                                            .stopAudio(ayat!);
+                                                      },
+                                                      icon: Icon(Icons.stop),
+                                                    )
+                                                  ],
+                                                ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),

@@ -47,6 +47,7 @@ class DetailJuz {
 }
 
 class Verses {
+  String kondisiAudio = "stop";
   Number? number;
   Meta? meta;
   Text? text;
@@ -55,7 +56,8 @@ class Verses {
   Tafsir? tafsir;
 
   Verses(
-      {this.number,
+      {kondisiAudio,
+      this.number,
       this.meta,
       this.text,
       this.translation,
@@ -95,6 +97,7 @@ class Verses {
     if (this.tafsir != null) {
       data['tafsir'] = this.tafsir!.toJson();
     }
+    data['kondisiAudio'] = this.kondisiAudio;
     return data;
   }
 }

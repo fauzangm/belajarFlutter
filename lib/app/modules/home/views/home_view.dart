@@ -16,9 +16,10 @@ class HomeView extends GetView<HomeController> {
         title: const Text('Quki'),
         centerTitle: true,
         actions: [
-          IconButton(
-              onPressed: () => Get.toNamed(Routes.SEARCH),
-              icon: Icon(Icons.search))
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Icon(Icons.bubble_chart_sharp),
+          )
         ],
       ),
       body: DefaultTabController(
@@ -133,7 +134,14 @@ class HomeView extends GetView<HomeController> {
                           borderRadius: BorderRadius.circular(20),
                           child: InkWell(
                             borderRadius: BorderRadius.circular(20),
-                            onTap: () => Get.toNamed(Routes.LAST_READ),
+                            onTap: () =>
+                                Get.toNamed(Routes.DETAIL_ITEM, arguments: {
+                              "name": dataLastRead["surah"]
+                                  .toString()
+                                  .replaceAll("+", "'"),
+                              "number": dataLastRead["number_surah"].toString(),
+                              "bookmark": dataLastRead
+                            }),
                             child: Container(
                               height: 150,
                               width: Get.width,

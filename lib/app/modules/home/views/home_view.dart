@@ -240,8 +240,10 @@ class HomeView extends GetView<HomeController> {
                                 Surah surah = snapshot.data![index];
                                 return ListTile(
                                   onTap: () {
-                                    Get.toNamed(Routes.DETAIL_ITEM,
-                                        arguments: surah);
+                                    Get.toNamed(Routes.DETAIL_ITEM, arguments: {
+                                      "name": surah.name!.transliteration!.id,
+                                      "number": surah.number.toString()
+                                    });
                                   },
                                   leading: Container(
                                       height: 35,
@@ -315,7 +317,13 @@ class HomeView extends GetView<HomeController> {
                               Map<String, dynamic> data = snapshot.data![index];
                               return ListTile(
                                 onTap: () {
-                                  print(index);
+                                  Get.toNamed(Routes.DETAIL_ITEM, arguments: {
+                                    "name": data["surah"]
+                                        .toString()
+                                        .replaceAll("+", "'"),
+                                    "number": data["number_surah"].toString(),
+                                    "bookmark": data
+                                  });
                                 },
                                 leading: CircleAvatar(
                                   child: Text(
@@ -336,7 +344,31 @@ class HomeView extends GetView<HomeController> {
                                     "Ayat ${data['ayat']} | Juz ke ${data['juz']}"),
                                 trailing: IconButton(
                                   onPressed: () {
-                                    cBookmark.deleteBookmarkById(data['id']);
+                                    Get.defaultDialog(
+                                        title: "Delete Bookmark",
+                                        middleText:
+                                            "Apakah kamu yakin ingin menghapusnya ?",
+                                        actions: [
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              cBookmark.deleteBookmarkById(
+                                                  data['id']);
+                                            },
+                                            child: Text("Ya"),
+                                            style: ElevatedButton.styleFrom(
+                                                primary: colorPurplePrimary),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                Get.back();
+                                              },
+                                              child: Text("Tidak"),
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: colorPurpleLight))
+                                        ]);
                                   },
                                   icon: Icon(Icons.delete),
                                 ),

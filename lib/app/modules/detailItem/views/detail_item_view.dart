@@ -6,22 +6,22 @@ import 'package:testing/app/data/models/DetailSurah.dart' as detail;
 import 'package:testing/app/data/models/Surah.dart';
 import 'package:testing/app/modules/home/controllers/home_controller.dart';
 import 'package:testing/app/routes/app_pages.dart';
-
+import 'package:scroll_to_index/scroll_to_index.dart';
 import '../controllers/detail_item_controller.dart';
 
 class DetailItemView extends GetView<DetailItemController> {
-  final Surah name = Get.arguments;
   final homeC = Get.find<HomeController>();
+  Map<String, dynamic>? bookmark;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-              'Surah ${name.name?.transliteration?.id?.toUpperCase() ?? 'Error'}'),
+          title:
+              Text('Surah ${Get.arguments["name"].toString().toUpperCase()}'),
           centerTitle: true,
         ),
         body: FutureBuilder<detail.DetailSurah>(
-            future: controller.getDetailSurah(name.number.toString()),
+            future: controller.getDetailSurah(Get.arguments["number"]),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -33,53 +33,75 @@ class DetailItemView extends GetView<DetailItemController> {
                   child: Text("Tidak ada data"),
                 );
               }
+              if (Get.arguments["bookmark"] != null) {
+                bookmark = Get.arguments["bookmark"];
+                if (bookmark!["index_ayat"] >= 1) {
+                  controller.scrollC.scrollToIndex(
+                    bookmark!["index_ayat"] + 2,
+                    preferPosition: AutoScrollPosition.begin,
+                  );
+                  print("bookmark = ${bookmark}");
+                }
+              }
+
               detail.DetailSurah surah = snapshot.data!;
               return ListView(
+                controller: controller.scrollC,
                 padding: EdgeInsets.all(20),
                 children: [
-                  GestureDetector(
-                    onTap: () => Get.defaultDialog(
-                      backgroundColor: colorPurpleLight.withOpacity(1),
-                      title: "Tafsir",
-                      titleStyle: TextStyle(fontWeight: FontWeight.bold),
-                      content: Padding(
-                        padding: const EdgeInsets.only(left: 10, right: 10),
-                        child: Container(
-                          child: (Text(
-                            "${surah.tafsir?.id ?? 'Tidak ada tafsir'}",
-                            textAlign: TextAlign.justify,
-                          )),
+                  AutoScrollTag(
+                    key: ValueKey(0),
+                    index: 0,
+                    controller: controller.scrollC,
+                    child: GestureDetector(
+                      onTap: () => Get.defaultDialog(
+                        backgroundColor: colorPurpleLight.withOpacity(1),
+                        title: "Tafsir",
+                        titleStyle: TextStyle(fontWeight: FontWeight.bold),
+                        content: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Container(
+                            child: (Text(
+                              "${surah.tafsir?.id ?? 'Tidak ada tafsir'}",
+                              textAlign: TextAlign.justify,
+                            )),
+                          ),
+                        ),
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            gradient: LinearGradient(
+                                colors: [colorPurpleLight, colorPurpleDark])),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(children: [
+                            Text(
+                                '${surah.name?.transliteration?.id?.toUpperCase()}',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: colorWhite)),
+                            Text(
+                                '(${surah.name?.translation?.id?.toUpperCase()})',
+                                style:
+                                    TextStyle(fontSize: 14, color: colorWhite)),
+                            Text(
+                                '(${surah.numberOfVerses} Ayat | ${surah.revelation?.id})',
+                                style:
+                                    TextStyle(fontSize: 14, color: colorWhite)),
+                          ]),
                         ),
                       ),
                     ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          gradient: LinearGradient(
-                              colors: [colorPurpleLight, colorPurpleDark])),
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(children: [
-                          Text(
-                              '${surah.name?.transliteration?.id?.toUpperCase()}',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: colorWhite)),
-                          Text(
-                              '(${surah.name?.translation?.id?.toUpperCase()})',
-                              style:
-                                  TextStyle(fontSize: 14, color: colorWhite)),
-                          Text(
-                              '(${surah.numberOfVerses} Ayat | ${surah.revelation?.id})',
-                              style:
-                                  TextStyle(fontSize: 14, color: colorWhite)),
-                        ]),
-                      ),
-                    ),
                   ),
-                  SizedBox(
-                    height: 10,
+                  AutoScrollTag(
+                    key: ValueKey(1),
+                    index: 1,
+                    controller: controller.scrollC,
+                    child: SizedBox(
+                      height: 10,
+                    ),
                   ),
                   ListView.builder(
                       shrinkWrap: true,
@@ -91,22 +113,10 @@ class DetailItemView extends GetView<DetailItemController> {
                           return SizedBox();
                         }
                         detail.Verse? ayat = snapshot.data?.verses?[index];
-                        return GestureDetector(
-                          // onTap: () => Get.defaultDialog(
-                          //   backgroundColor: colorPurpleLight.withOpacity(1),
-                          //   title: "Tafsir",
-                          //   titleStyle: TextStyle(fontWeight: FontWeight.bold),
-                          //   content: Padding(
-                          //     padding:
-                          //         const EdgeInsets.only(left: 10, right: 10),
-                          //     child: Container(
-                          //       child: (Text(
-                          //         "${surah.tafsir?.id ?? 'Tidak ada tafsir'}",
-                          //         textAlign: TextAlign.justify,
-                          //       )),
-                          //     ),
-                          //   ),
-                          // ),
+                        return AutoScrollTag(
+                          key: ValueKey(index + 2),
+                          index: index + 2,
+                          controller: controller.scrollC,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [

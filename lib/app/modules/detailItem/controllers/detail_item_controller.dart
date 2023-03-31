@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:testing/app/assets/colors.dart';
 import 'package:testing/app/data/db/bookmark.dart';
@@ -13,6 +14,7 @@ import 'package:http/http.dart' as http;
 class DetailItemController extends GetxController {
   //TODO: Implement DetailItemController
   DatabaseManager database = DatabaseManager.instance;
+  AutoScrollController scrollC = AutoScrollController();
   Verse? lastVerse;
   final player = AudioPlayer();
   Future<DetailSurah> getDetailSurah(String id) async {
@@ -136,9 +138,17 @@ class DetailItemController extends GetxController {
       await db.delete("bookmark", where: "last_read = 0");
     } else {
       List checkData = await db.query("bookmark",
-          columns: ["surah", "ayat", "juz", "via", "index_ayat", "last_read"],
+          columns: [
+            "surah",
+            "number_surah",
+            "ayat",
+            "juz",
+            "via",
+            "index_ayat",
+            "last_read"
+          ],
           where:
-              "surah = '${surah.name!.transliteration!.id!.replaceAll("'", "+")}' and ayat = ${ayat.number!.inSurah} and juz = ${ayat.meta!.juz} and via = 'surah' and index_ayat = $indexAyat and last_read = 1");
+              "surah = '${surah.name!.transliteration!.id!.replaceAll("'", "+")}' and number_surah = ${surah.number} and ayat = ${ayat.number!.inSurah} and juz = ${ayat.meta!.juz} and via = 'surah' and index_ayat = $indexAyat and last_read = 1");
       if (checkData.length != 0) {
         print(checkData);
         flagExist = true;
@@ -150,16 +160,21 @@ class DetailItemController extends GetxController {
     if (flagExist == false) {
       await db.insert("bookmark", {
         "surah": "${surah.name!.transliteration!.id!.replaceAll("'", "+")}",
+        "number_surah": "${surah.number}",
         "ayat": ayat.number!.inSurah,
         "juz": ayat.meta!.juz,
         "via": "surah",
         "index_ayat": indexAyat,
         "last_read": lastRead == true ? 1 : 0
       });
-
       Get.back(); //tutup dialog
-      Get.snackbar("Berhasil", "Berhasil menambahkan bookmark",
-          colorText: colorWhite);
+      if (lastRead == true) {
+        Get.snackbar("Berhasil", "Berhasil Menambahkan Bookmark",
+            colorText: colorWhite);
+      } else {
+        Get.snackbar("Berhasil", "Berhasil Menambahkan Last Read",
+            colorText: colorWhite);
+      }
       var data = await db.query("bookmark");
       print(data);
     } else {
